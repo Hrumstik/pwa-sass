@@ -1,4 +1,4 @@
-// File: C:\Users\Xiaomi\Desktop\pwa-saas\src\app\[locale]\page.tsx
+// File: D:\my PWA SAAS\src\app\[locale]\page.tsx
 import * as entry from '../../../../src/app/[locale]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

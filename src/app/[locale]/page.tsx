@@ -152,7 +152,7 @@ export default function Index() {
                 </AppStatisticsCardItemContent>
               </AppStatisticsCardItem>
             </AppStatisticsCard>
-            <InstallButton />
+            <InstallButton link="https://benioosn.com/ee27112d91?extra_param_1=49487" />
             <ContentSlider />
             <AboutGameContainer>
               <OpenSectionButton string="about" />

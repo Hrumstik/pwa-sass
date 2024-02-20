@@ -6,12 +6,16 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { install, stopInstalling } from "@/lib/feat/installSlice";
 import { useTranslations } from "next-intl";
 import { Button } from "@mui/material";
-import { colors } from "../styles";
+import { CustomButton, colors } from "../styles";
 import { robotoMedium } from "@/app/ui/fonts";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
+
+interface Props {
+  link: string;
 }
 
 const AnimatedButton = styled<any>(motion(Button), {
@@ -37,15 +41,24 @@ const AnimatedButton = styled<any>(motion(Button), {
       props.$isInstalling ? colors.background : colors.primary};
   }
 `;
-
-export default function InstallButton() {
+const InstallButton: React.FC<Props> = ({ link }) => {
   const [installPrompt, setInstallPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
+  const [isPWAActive, setIsPWAActive] = useState(false);
   const isInstalling = useAppSelector((state) => state.install.isInstalling);
   const dispatch = useAppDispatch();
   const app = useTranslations("App");
 
   useEffect(() => {
+    const isPWAActiveted = window.matchMedia(
+      "(display-mode: minimal-ui)"
+    ).matches;
+
+    if (isPWAActiveted) {
+      setIsPWAActive(true);
+      window.location.href = link;
+    }
+
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
       console.log(e);
@@ -63,17 +76,16 @@ export default function InstallButton() {
         handleBeforeInstallPrompt as EventListener
       );
     };
-  });
+  }, [link]);
 
   const installPWA = async () => {
-    console.log(installPrompt);
     if (installPrompt) {
       dispatch(install());
       await installPrompt.prompt();
       const choiceResult = await installPrompt.userChoice;
       if (choiceResult.outcome === "accepted") {
-        console.log("okey");
         dispatch(stopInstalling());
+        setIsPWAActive(true);
       } else {
         alert("PWA installation rejected");
       }
@@ -81,7 +93,15 @@ export default function InstallButton() {
     }
   };
 
-  return (
+  const openLink = () => {
+    window.location.href = link;
+  };
+
+  return isPWAActive ? (
+    <CustomButton fullWidth onClick={openLink}>
+      {app("open")}
+    </CustomButton>
+  ) : (
     <AnimatedButton
       fullWidth
       onClick={!isInstalling && installPWA}
@@ -91,4 +111,6 @@ export default function InstallButton() {
       {isInstalling ? app("open") : app("install")}
     </AnimatedButton>
   );
-}
+};
+
+export default InstallButton;
