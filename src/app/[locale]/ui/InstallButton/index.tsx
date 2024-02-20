@@ -70,6 +70,11 @@ const InstallButton: React.FC<Props> = ({ link }) => {
       handleBeforeInstallPrompt as EventListener
     );
 
+    window.addEventListener("appinstalled", (event) => {
+      dispatch(stopInstalling());
+      setIsPWAActive(true);
+    });
+
     return () => {
       window.removeEventListener(
         "beforeinstallprompt",
@@ -84,8 +89,7 @@ const InstallButton: React.FC<Props> = ({ link }) => {
       await installPrompt.prompt();
       const choiceResult = await installPrompt.userChoice;
       if (choiceResult.outcome === "accepted") {
-        dispatch(stopInstalling());
-        setIsPWAActive(true);
+        console.log("PWA installation was accepted");
       } else {
         alert("PWA installation rejected");
       }
