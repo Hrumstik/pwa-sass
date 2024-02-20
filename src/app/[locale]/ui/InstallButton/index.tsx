@@ -60,7 +60,7 @@ const InstallButton: React.FC<Props> = ({ link }) => {
 
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
-      console.log(e);
+      alert("Work");
       installPrompt = e;
     };
 
