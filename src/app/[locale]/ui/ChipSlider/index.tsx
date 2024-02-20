@@ -8,7 +8,14 @@ import { Chip } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { ScreenWrapperItem, SliderContainer } from "../styles";
 
-const chipLabels = ["topInCasino", "casino", "slots", "offline", "stylised"];
+const chipLabels = [
+  "topInCasino",
+  "casino",
+  "slots",
+  "online",
+  "offline",
+  "stylised",
+];
 
 export default function ChipSlider() {
   const app = useTranslations("App");
@@ -20,24 +27,6 @@ export default function ChipSlider() {
     slidesToScroll: 1,
     initialSlide: 0,
     variableWidth: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 3.5,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-    ],
   };
 
   return (
@@ -48,8 +37,9 @@ export default function ChipSlider() {
             <ScreenWrapperItem key={labelKey}>
               <Chip
                 label={app(labelKey)}
+                variant="outlined"
                 sx={{
-                  borderRadius: "3px",
+                  borderRadius: "8px",
                   border: "1px solid rgb(32, 33, 36)",
                 }}
               />

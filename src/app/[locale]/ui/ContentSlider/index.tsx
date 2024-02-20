@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ScreenContainer, ScreenWrapperItem, SliderContainer } from "./styles";
+import { ScreenContainer, ScreenWrapperItem, SliderContainer } from "../styles";
 
 export default function ContentSlider() {
   const settings = {

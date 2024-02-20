@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ReactNode } from "react";
+
 import "normalize.css";
 
 type Props = {
@@ -17,6 +18,6 @@ export const viewport: Viewport = {
   themeColor: "#afbf1f",
 };
 
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({ children }: Readonly<Props>) {
   return children;
 }
