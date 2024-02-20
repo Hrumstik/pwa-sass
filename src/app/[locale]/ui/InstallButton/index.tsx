@@ -80,20 +80,18 @@ const InstallButton: React.FC<Props> = ({ link }) => {
         handleBeforeInstallPrompt as EventListener
       );
     };
-  }, [link]);
+  }, [link, installPrompt]);
 
   const installPWA = async () => {
-    if (installPrompt) {
-      dispatch(install());
-      await installPrompt.prompt();
-      const choiceResult = await installPrompt.userChoice;
-      if (choiceResult.outcome === "accepted") {
-        console.log("PWA installation was accepted");
-      } else {
-        alert("PWA installation rejected");
-      }
-      installPrompt = null;
+    dispatch(install());
+    await installPrompt.prompt();
+    const choiceResult = await installPrompt.userChoice;
+    if (choiceResult.outcome === "accepted") {
+      console.log("PWA installation was accepted");
+    } else {
+      alert("PWA installation rejected");
     }
+    installPrompt = null;
   };
 
   const openLink = () => {
