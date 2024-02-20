@@ -8,14 +8,7 @@ import { Chip } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { ScreenWrapperItem, SliderContainer } from "../styles";
 
-const chipLabels = [
-  "topInCasino",
-  "casino",
-  "slots",
-  "online",
-  "offline",
-  "stylised",
-];
+const chipLabels = ["topInCasino", "casino", "slots", "offline", "stylised"];
 
 export default function ChipSlider() {
   const app = useTranslations("App");
