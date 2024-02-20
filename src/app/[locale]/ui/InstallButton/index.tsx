@@ -42,8 +42,7 @@ const AnimatedButton = styled<any>(motion(Button), {
   }
 `;
 const InstallButton: React.FC<Props> = ({ link }) => {
-  const [installPrompt, setInstallPrompt] =
-    useState<BeforeInstallPromptEvent | null>(null);
+  let installPrompt: any;
   const [isPWAActive, setIsPWAActive] = useState(false);
   const isInstalling = useAppSelector((state) => state.install.isInstalling);
   const dispatch = useAppDispatch();
@@ -62,7 +61,7 @@ const InstallButton: React.FC<Props> = ({ link }) => {
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
       console.log(e);
-      setInstallPrompt(e);
+      installPrompt = e;
     };
 
     window.addEventListener(
@@ -93,7 +92,7 @@ const InstallButton: React.FC<Props> = ({ link }) => {
       } else {
         alert("PWA installation rejected");
       }
-      setInstallPrompt(null);
+      installPrompt = null;
     }
   };
 
